@@ -65,6 +65,7 @@ resource "aws_instance" "my-instance" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.nitin_sg.id]
   key_name               = aws_key_pair.nitin_key.key_name
+
   #root storage(ebs)
   root_block_device {
     volume_size = 8
@@ -75,8 +76,7 @@ resource "aws_instance" "my-instance" {
   }
 }
 
-#ec2 instance state
-resource "aws_instance_state" "my-instance-state" {
+resource "aws_ec2_instance_state" "my-instance-state" {
   instance_id = aws_instance.my-instance.id
-  state = "running"
+  state       = "running" # Set to "stopped" when you want to power it down
 }
